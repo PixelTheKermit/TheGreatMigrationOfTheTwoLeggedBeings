@@ -110,7 +110,7 @@ func CreateChildren(childCount: int):
 	for v in range(childCount - firstReproducers):
 		var i = geneticInfo.pick_random()
 		# Make evolution harsher for the failures
-		children.append(MakeMutatedCopy(i, 1.0 + 0.01 * v))
+		children.append(MakeMutatedCopy(i, 1.0 + 0.01 * max(geneticInfo.find(i) - firstReproducers, 0)))
 
 	geneticInfo.append_array(children)
 
