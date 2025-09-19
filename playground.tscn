@@ -21,8 +21,6 @@ sources/1 = SubResource("TileSetAtlasSource_is3ju")
 [node name="Playground" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_wt17y")
-purgePercent = 50.0
-guaranteedReproduce = 15
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

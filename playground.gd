@@ -1,7 +1,7 @@
 extends Node2D
 
 ## Also controls the birth percentage
-@export_range(0, 100, 0.5) var purgePercent: float = 75.0
+@export_range(0, 100, 0.5) var purgePercent: float = 50.0
 @export var initialPopulation: int = 100
 @export var headUpBonus: float = 2.0
 @export var guaranteedReproduce: int = 10
