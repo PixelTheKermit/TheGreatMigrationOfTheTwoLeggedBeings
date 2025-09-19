@@ -122,7 +122,7 @@ func MakeMutatedCopy(parent, mutationMult: float = 1.0):
 		for ii in parent.geneticInfo:
 			var info = []
 			for iii in ii:
-				info.append(iii + MoveMutate() * mutationMult)
+				info.append(clamp(iii + MoveMutate() * mutationMult, -PI*2, PI*2))
 			child.geneticInfo.append(info)
 		
 		var chance = rng.randf()
