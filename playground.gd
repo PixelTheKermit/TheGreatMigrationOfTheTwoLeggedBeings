@@ -1,9 +1,10 @@
 extends Node2D
 
 ## Also controls the birth percentage
-@export_range(0, 50, 0.5) var purgePercent: float = 25.0
+@export_range(0, 100, 0.5) var purgePercent: float = 75.0
 @export var initialPopulation: int = 100
 @export var headUpBonus: float = 2.0
+@export var guaranteedReproduce: int = 10
 
 var rng = RandomNumberGenerator.new()
 @onready var spawnPoint = $SpawnPoint
@@ -68,7 +69,7 @@ func Purge():
 		if b.position.x > furthestDistanceWalked:
 			furthestDistanceWalked = b.position.x
 			$CanvasLayer/Control/VBoxContainer/HBoxContainer2/ColorRect.color = b.modulate
-		$CanvasLayer/Control/VBoxContainer/HBoxContainer2/FurthestTravelled.text = "Furthest travelled: " + str(snapped(furthestDistanceWalked, 0.1)) + " by " + ""
+		$CanvasLayer/Control/VBoxContainer/HBoxContainer2/FurthestTravelled.text = "Furthest travelled: " + str(snapped(furthestDistanceWalked/10.0, 0.1)) + "u/s by " + ""
 		if a.position.x * bonusA > highestScore:
 			highestScore = a.position.x * bonusA
 			$CanvasLayer/Control/VBoxContainer/HBoxContainer/ColorRect.color = a.modulate
@@ -93,36 +94,43 @@ func Purge():
 	return int(dead)
 
 func CreateChildren(childCount: int):
-	var toClone = min(childCount, geneticInfo.size())
 	var children = []
 	
 	var clone = []
-	for i in range(min(5, geneticInfo.size()), geneticInfo.size()):
+	var firstReproducers = min(guaranteedReproduce, geneticInfo.size())
+	#for i in range(firstReproducers, geneticInfo.size()):
+		#clone.append(geneticInfo[i])
+	
+	for i in range(firstReproducers):
 		clone.append(geneticInfo[i])
 	
-	clone.shuffle()
+	for c in clone:
+		children.append(MakeMutatedCopy(c, 0.5))
 	
-	for i in range(0, min(5, geneticInfo.size())):
-		clone.append(geneticInfo[i])
-	
-	for v in range(toClone):
-		var i = clone[v]
+	for v in range(childCount - firstReproducers):
+		var i = geneticInfo.pick_random()
+		# Make evolution harsher for the failures
+		children.append(MakeMutatedCopy(i, 1.0 + 0.01 * v))
+
+	geneticInfo.append_array(children)
+
+func MakeMutatedCopy(parent, mutationMult: float = 1.0):
 		var child = {}
-		child.geneticTimer = i.geneticTimer + rng.randf_range(-0.01, 0.01)
-		child.color = i.color + Color(rng.randf_range(-0.05, 0.05), rng.randf_range(-0.05, 0.05), rng.randf_range(-0.05, 0.05))
+		child.geneticTimer = parent.geneticTimer + rng.randf_range(-0.01, 0.01)
+		child.color = parent.color + Color(rng.randf_range(-0.05, 0.05), rng.randf_range(-0.05, 0.05), rng.randf_range(-0.05, 0.05) * mutationMult)
 		child.geneticInfo = []
-		for ii in i.geneticInfo:
+		for ii in parent.geneticInfo:
 			var info = []
 			for iii in ii:
-				info.append(iii + MoveMutate())
+				info.append(iii + MoveMutate() * mutationMult)
 			child.geneticInfo.append(info)
-		children.append(child)
+		
 		var chance = rng.randf()
 		if chance > .9 and child.geneticInfo.size() < 10:
 			child.geneticInfo.append([] + child.geneticInfo.pick_random())
 		if chance < .9 and child.geneticInfo.size() > 1:
 			child.geneticInfo.remove_at(randi_range(0, child.geneticInfo.size() - 1))
-	geneticInfo.append_array(children)
+		return child
 
 func SpawnBots():
 	for i in geneticInfo:

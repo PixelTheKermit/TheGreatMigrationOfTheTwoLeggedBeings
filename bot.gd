@@ -13,10 +13,10 @@ var curGenInfo = 0
 ]
 
 @onready var angularLimits = [
-	[$Joints/LegUpper/LegUpper5, [-PI / 2, 0]],
-	[$Joints/LegUpper2/LegUpper7, [0, PI / 2]],
-	[$Joints/LegUpper/LegUpper5/LegLower/LegUpper6, [0, PI / 2]],
-	[$Joints/LegUpper2/LegUpper7/LegLower2/LegUpper8, [-PI / 2, 0]],
+	[$Joints/LegUpper/LegUpper5, [-PI / 4, PI / 4]],
+	[$Joints/LegUpper2/LegUpper7, [-PI / 4, PI / 4]],
+	[$Joints/LegUpper/LegUpper5/LegLower/LegUpper6, [-PI / 4, PI / 4]],
+	[$Joints/LegUpper2/LegUpper7/LegLower2/LegUpper8, [-PI / 4, PI / 4]],
 ]
 
 @onready var connections = [
