@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=3 uid="uid://c82mwsw4uxbhj"]
+
+[ext_resource type="Script" uid="uid://bnc15rejsoycr" path="res://bot.gd" id="1_5unqy"]
+[ext_resource type="Texture2D" uid="uid://cu05grgykh7gg" path="res://fella.png" id="1_n8o8f"]
+[ext_resource type="Texture2D" uid="uid://c3hunortmmj05" path="res://leg.png" id="2_mo174"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5unqy"]
+radius = 15.033297
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5unqy"]
+radius = 4.0
+height = 55.0
+
+[node name="Bot" type="RigidBody2D"]
+collision_layer = 0
+lock_rotation = true
+contact_monitor = true
+script = ExtResource("1_5unqy")
+
+[node name="Legs" type="Node2D" parent="."]
+show_behind_parent = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_n8o8f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5unqy")
+
+[node name="Joints" type="Node2D" parent="."]
+show_behind_parent = true
+
+[node name="LegUpper" type="PinJoint2D" parent="Joints"]
+position = Vector2(15, 0)
+node_a = NodePath("../..")
+node_b = NodePath("LegUpper5")
+
+[node name="LegUpper5" type="RigidBody2D" parent="Joints/LegUpper"]
+collision_layer = 0
+
+[node name="Leg" type="Sprite2D" parent="Joints/LegUpper/LegUpper5"]
+position = Vector2(24, -1)
+texture = ExtResource("2_mo174")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Joints/LegUpper/LegUpper5"]
+position = Vector2(24.5, 0)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_5unqy")
+
+[node name="LegLower" type="PinJoint2D" parent="Joints/LegUpper/LegUpper5"]
+position = Vector2(52, 0)
+node_a = NodePath("..")
+node_b = NodePath("LegUpper6")
+
+[node name="LegUpper6" type="RigidBody2D" parent="Joints/LegUpper/LegUpper5/LegLower"]
+collision_layer = 0
+
+[node name="Leg" type="Sprite2D" parent="Joints/LegUpper/LegUpper5/LegLower/LegUpper6"]
+position = Vector2(24, -1)
+texture = ExtResource("2_mo174")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Joints/LegUpper/LegUpper5/LegLower/LegUpper6"]
+position = Vector2(24.5, 0)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_5unqy")
+
+[node name="LegUpper2" type="PinJoint2D" parent="Joints"]
+position = Vector2(-15, 0)
+rotation = 3.1415927
+node_a = NodePath("../..")
+node_b = NodePath("LegUpper7")
+
+[node name="LegUpper7" type="RigidBody2D" parent="Joints/LegUpper2"]
+collision_layer = 0
+
+[node name="Leg" type="Sprite2D" parent="Joints/LegUpper2/LegUpper7"]
+position = Vector2(24, -1)
+texture = ExtResource("2_mo174")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Joints/LegUpper2/LegUpper7"]
+position = Vector2(24.5, -1.1368684e-13)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_5unqy")
+
+[node name="LegLower2" type="PinJoint2D" parent="Joints/LegUpper2/LegUpper7"]
+position = Vector2(49, -1.1368684e-13)
+node_a = NodePath("..")
+node_b = NodePath("LegUpper8")
+
+[node name="LegUpper8" type="RigidBody2D" parent="Joints/LegUpper2/LegUpper7/LegLower2"]
+collision_layer = 0
+
+[node name="Leg" type="Sprite2D" parent="Joints/LegUpper2/LegUpper7/LegLower2/LegUpper8"]
+position = Vector2(24, -1)
+texture = ExtResource("2_mo174")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Joints/LegUpper2/LegUpper7/LegLower2/LegUpper8"]
+position = Vector2(24.5, 0)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_5unqy")

@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://c35iuwf2jdj61"]
+
+[ext_resource type="Script" uid="uid://b8mcrbagkidyc" path="res://playground.gd" id="1_wt17y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rupst"]
+size = Vector2(4096, 20)
+
+[node name="Playground" type="Node2D"]
+script = ExtResource("1_wt17y")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Generation" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+text = "Generation:"
+
+[node name="RoundTime" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+text = "Round time:"
+
+[node name="Population" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+text = "Population:"
+
+[node name="DeathTally" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+text = "Deaths: 0"
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2(188, 628)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(639, 659)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1390, 0)
+shape = SubResource("RectangleShape2D_rupst")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(189, 623)

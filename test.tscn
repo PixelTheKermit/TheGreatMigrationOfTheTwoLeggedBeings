@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b08ws6q6kyqhe"]
+
+[ext_resource type="PackedScene" uid="uid://c82mwsw4uxbhj" path="res://bot.tscn" id="1_37kl0"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Bot" parent="." instance=ExtResource("1_37kl0")]
+position = Vector2(372, 178)
+sleeping = true
+freeze = true
