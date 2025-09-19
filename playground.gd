@@ -53,7 +53,7 @@ func CreateNewGeneration():
 	roundTime = GetNewRoundTime()
 
 func MoveMutate():
-	return rng.randf_range(-2, 2)
+	return rng.randf_range(-2, 2) / PI
 
 func Purge():
 	geneticInfo = []
