@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	for i in legs.size():
 		var leg:RigidBody2D = legs[i]
 		#leg.linear_velocity = Vector2(0, 0)
-		leg.rotation = lerp(leg.rotation, geneticInfo[curGenInfo][i], 0.1)
+		leg.rotation = lerp(leg.rotation, geneticInfo[curGenInfo][i], delta)
 	
 	for i in angularLimits:
 		i[0].rotation = clamp(deg_to_rad(rad_to_deg(i[0].rotation)), i[1][0], i[1][1]) 
